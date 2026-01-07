@@ -9,8 +9,6 @@
 
 This analysis is divided into 6 separate notebooks for clarity and organization:
 
-### 📊 Analysis Notebooks (Run in Order)
-
 1. **`01_setup_and_data_loading.ipynb`**
    - Install packages and import libraries
    - Load NFL schedule data (2021-2024)
@@ -56,7 +54,7 @@ This analysis is divided into 6 separate notebooks for clarity and organization:
 
 ---
 
-## Key Findings (Expected)
+## Key Findings
 
 ### Immediate Impact
 - Coast-to-coast travel reduces win rate by X%
@@ -98,7 +96,7 @@ Based on findings, the analysis will support 2-3 priorities:
 
 ## Data Sources
 
-- **nfl-data-py**: NFL schedule and statistics data
+- **nflreadpy**: NFL schedule and statistics data
 - **Seasons**: 2021, 2022, 2023, 2024
 - **Sample Size**: ~200-300 coast-to-coast games
 - **Teams**: All 32 NFL teams classified by time zone
@@ -108,12 +106,12 @@ Based on findings, the analysis will support 2-3 priorities:
 ## How to Use
 
 1. **Install Python environment**
-   ```bash
-   pip install nfl-data-py pandas numpy matplotlib seaborn scikit-learn
+   ```
+   pip install nflreadpy pandas numpy matplotlib seaborn scikit-learn
    ```
 
 2. **Run notebooks in order** (1 → 2 → 3 → 4 → 5 → 6)
-   - Each notebook loads outputs from previous ones
+   - Each notebook builds upon the outputs from the previous
    - Follow TODO comments to fill in analysis
 
 3. **Generate visualizations**
@@ -129,18 +127,7 @@ Based on findings, the analysis will support 2-3 priorities:
 
 ## Competition Requirements
 
-✅ **Executive Summary**: Concise overview of findings
-✅ **Detailed Analysis**: Up to 10 tables/visualizations
-✅ **NFLPA Recommendations**: 2-3 advocacy priorities
-✅ **Data-Driven**: Statistical evidence of cumulative workload effects
-
----
-
-## Notes
-
-- Each notebook is self-contained with clear comments
-- TODOs mark where you need to add your analysis
-- Visualizations designed for publication quality
-- Focus on demonstrating **cumulative workload effects** per competition requirements
-
-Good luck with the competition! 🏈📊
+ **Executive Summary**: Concise overview of findings
+ **Detailed Analysis**: Up to 10 tables/visualizations
+ **NFLPA Recommendations**: 2-3 advocacy priorities
+ **Data-Driven**: Statistical evidence of cumulative workload effects
