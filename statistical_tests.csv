@@ -1,0 +1,5 @@
+Metric,Home Mean,C2C Mean,Difference,t-statistic,p-value,Significant
+Points Scored,23.6,21.9,1.7,-1.644,0.1004,N
+Passing Yards,242.0,235.9,-6.1,-0.815,0.4155,N
+Rushing Yards,119.7,108.7,-11.0,-1.980,0.0479,Y
+Passing TDs,1.5,1.4,-0.2,-1.466,0.1430,N

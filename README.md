@@ -1,133 +1,91 @@
 # Coast-to-Coast Travel Analysis
 ## NFLPA Data Analytics Case Competition
 
-**Research Question**: How does cross-country travel affect NFL team performance, and does this create competitive inequities between West Coast and East Coast teams?
+Research Question: How does cross-country travel affect NFL team performance, and does this create competitive inequities between West Coast and East Coast teams?
 
 ---
 
 ## Project Structure
 
-This analysis is divided into 6 separate notebooks for clarity and organization:
+This analysis is organized into 5 notebooks:
 
-1. **`01_setup_and_data_loading.ipynb`**
-   - Install packages and import libraries
-   - Load NFL schedule data (2021-2024)
-   - Load team performance statistics
-   - Initial data exploration
-   - **Output**: `data_schedules.csv`, `data_team_stats.csv`
+1. 01_setup_and_data_loading.ipynb
+   - Load NFL schedules (2021–2024) and weekly team stats via nflreadpy
+   - Basic exploration and integrity checks
+   - Outputs:
+     - data_schedules.csv
+     - data_team_stats.csv
 
-2. **`02_travel_classification.ipynb`**
-   - Classify teams by time zone
-   - Calculate time zones crossed per game
-   - Identify coast-to-coast travel (3 zones)
-   - Analyze travel burden by team
-   - **Output**: `data_schedules_with_travel.csv`
+2. 02_travel_classification.ipynb
+   - Map teams to time zones (Pacific, Mountain, Central, Eastern)
+   - Compute time zones crossed per game (tz_crossed)
+   - Flag coast-to-coast games (3 zones)
+   - Team burden summaries and visuals
+   - Output:
+     - data_schedules_with_travel.csv
 
-3. **`03_performance_impact.ipynb`**
-   - Win rate analysis by travel category
-   - Scoring and offensive metrics comparison
-   - Statistical significance testing
-   - Travel direction impact (East→West vs West→East)
-   - **Output**: Performance comparison tables
+3. 03_performance_impact.ipynb
+   - Away win rate by travel category (0–3 zones) vs home baseline
+   - Scoring and offensive metrics comparisons with t-tests
+   - Directional analysis (East→West vs West→East)
+   - Outputs:
+     - performance_comparison.csv
+     - statistical_tests.csv
+     - direction_comparison.csv
 
-4. **`04_recovery_analysis.ipynb`**
-   - Identify post-travel games
-   - Measure hangover effects
-   - Recovery timeline analysis
-   - Impact of rest days
-   - Cumulative fatigue from multiple trips
-   - **Output**: `data_recovery_analysis.csv`
+4. 04_recovery_analysis.ipynb
+   - Identify games following C2C travel (hangover effects)
+   - Recovery timeline (Baseline, During C2C, 1 Game After)
+   - Rest-days impact and recent multiple-trip fatigue
+   - Outputs:
+     - recovery_timeline.csv
+     - rest_days_analysis.csv
+     - cumulative_fatigue.csv
 
-5. **`05_cumulative_impact.ipynb`**
-   - Season-level travel burden metrics
-   - Correlation with final standings
-   - Playoff qualification analysis
-   - West Coast vs East Coast disparity
-   - Regression modeling
-   - **Output**: `data_season_analysis.csv`
-
-6. **`06_visualizations.ipynb`**
-   - Create 10 publication-quality figures
-   - Charts for executive summary
-   - Supporting visualizations for detailed report
-   - **Output**: `.png` files for all figures
-
----
-
-## Key Findings
-
-### Immediate Impact
-- Coast-to-coast travel reduces win rate by X%
-- Offensive performance metrics decline significantly
-- East→West travel may be particularly challenging
-
-### Recovery Effects
-- Hangover effects persist for 1-2 games after travel
-- Requires X days of rest for full recovery
-- Multiple trips compound fatigue
-
-### Cumulative Burden
-- West Coast teams face 3-4x more coast-to-coast games
-- Travel burden predicts worse season outcomes
-- Systematic competitive disadvantage for high-travel teams
+5. 05_cumulative_impact.ipynb
+   - Season-level travel metrics (c2c_games, total_tz, avg_tz, max_tz)
+   - Correlations with win%, points, point differential
+   - Playoff qualification analysis and coast disparities
+   - Simple regression (win% ~ C2C games)
+   - Outputs:
+     - season_analysis.csv
+     - coast_comparison.csv
+     - correlations.csv
 
 ---
 
-## NFLPA Recommendations
+## Current Findings
 
-Based on findings, the analysis will support 2-3 priorities:
+- 03 · Game-level performance (C2C vs home/other away)
+  - Tested: win rate, scoring/offensive metrics (see statistical_tests.csv).
+  - Significant at p < 0.05:
+    - Rushing Yards: lower in C2C away games (p ≈ 0.0479).
+  - Not significant in current run:
+    - Other tested metrics (e.g., points, passing yards, turnovers, third downs, etc.) did not reach p < 0.05. See statistical_tests.csv for exact p-values.
 
-### 1. Schedule Equity
-- Limit coast-to-coast games per team per season
-- Balance travel burden across conferences
-- Strategic bye week placement after long travel
+- 03 · Directional effects (East→West vs West→East)
+  - Tested: descriptive comparisons (direction_comparison.csv).
+  - Status: differences summarized descriptively; no formal significance tests in-code.
 
-### 2. Recovery Protocols
-- Mandate minimum rest days after cross-country travel
-- Provide travel support resources (sleep specialists, nutrition)
-- Extra practice time for body clock adjustment
+- 05 · Playoffs and season aggregates
+  - Tested: Playoff qualification vs travel burden.
+    - Result: Playoff teams averaged slightly more C2C games (~0.83) than non-playoff teams (~0.74); small difference. T-test result printed; not compelling evidence that travel prevented playoff qualification.
+---
 
-### 3. Competitive Compensation
-- Account for travel burden in collective bargaining
-- Roster flexibility for high-travel weeks
-- Additional compensation for systematically disadvantaged teams
+## How to Run
+
+1. Install dependencies (Windows/PowerShell):
+   ```
+   pip install nflreadpy pandas numpy matplotlib seaborn scikit-learn scipy pyarrow
+   ```
+2. Run notebooks in order (1 -> 5). Each notebook reads prior outputs.
+3. Review generated CSVs:
+   - performance_comparison.csv, statistical_tests.csv, direction_comparison.csv
+   - recovery_timeline.csv, rest_days_analysis.csv, cumulative_fatigue.csv
+   - season_analysis.csv, coast_comparison.csv, correlations.csv
 
 ---
 
 ## Data Sources
 
-- **nflreadpy**: NFL schedule and statistics data
-- **Seasons**: 2021, 2022, 2023, 2024
-- **Sample Size**: ~200-300 coast-to-coast games
-- **Teams**: All 32 NFL teams classified by time zone
-
----
-
-## How to Use
-
-1. **Install Python environment**
-   ```
-   pip install nflreadpy pandas numpy matplotlib seaborn scikit-learn
-   ```
-
-2. **Run notebooks in order** (1 → 2 → 3 → 4 → 5 → 6)
-   - Each notebook builds upon the outputs from the previous
-   - Follow TODO comments to fill in analysis
-
-3. **Generate visualizations**
-   - Run notebook 6 to create all figures
-   - Select 8-10 best for final report
-
-4. **Write final report**
-   - Executive summary (1 page)
-   - Detailed write-up (with tables/visualizations)
-   - NFLPA recommendations section
-
----
-
-## Competition Requirements
-
- **Executive Summary**: Concise overview of findings
- **Detailed Analysis**: Up to 10 tables/visualizations
- **NFLPA Recommendations**: 2-3 advocacy priorities
- **Data-Driven**: Statistical evidence of cumulative workload effects
+- nflreadpy (schedules and weekly team stats), seasons 2021–2024
